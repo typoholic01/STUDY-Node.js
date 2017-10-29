@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>소녀전선</title>
+<!-- 							JQuery 					 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- 							Bootstrap 					 -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 							font-awesome 					 -->
+<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+<!-- AJAX -->
+<script type="text/javascript">
+$(document).ready(function() {
+	console.log('ajax 시작');
+	
+	$.ajax({
+		type: 'GET',
+		url: '/list',
+		async: true, 
+		success: function(data) {
+			console.log(data);
+			console.log('통신종료');
+
+ 			$.each(data, function(index, item) {
+ 				console.log(data[index]);
+ 				//댓글 만들기
+ 				$('#myTable2 > tbody').append(setHtml(data[index]));
+			}); 
+		},
+		error: function(xhr, status, error) {
+			console.log(error);
+		}
+	});
+});
+
+function setHtml(row) {
+	var html;
+	
+	html = '        <tr>'
+	+'    <td data-column="지역">'+row.No+'</td>'
+	+'    <td data-column="맵">'+row.SubNo+'</td>'
+	+'    <td data-column="리더Lv">'+row.LeaderLV+'</td>'
+	+'    <td data-column="최소인원">'+row.MinMemNum+'</td>'
+	+'    <td data-column="시간">'+row.WatingTime+'</td>'
+	+'    <td data-column="인력">'+row.Bullet+'</td>'
+	+'    <td data-column="탄약">'+row.Food+'</td>'
+	+'    <td data-column="식량">'+row.Human+'</td>'
+	+'    <td data-column="부품">'+row.Part+'</td>'
+	+'    <td data-column="획득 아이템">'+row.ItemCode+'</td>'
+	+'  </tr>';
+	
+	return html;
+}
+</script>
+</head>
+<body>
+<div class="container">
+<div class="row">
+      <table id="myTable2" class="table table-hover">
+        <caption>보통</caption>
+        <thead>
+          <tr class="info">
+            <th onclick="sortTable(0)">지역</th>
+            <th onclick="sortTable(1)">맵</th>
+            <th onclick="sortTable(2)">리더Lv</th>
+            <th onclick="sortTable(3)">최소인원</th>
+            <th onclick="sortTable(4)">시간</th>
+            <th onclick="sortTable(5)">인력</th>
+            <th onclick="sortTable(6)">탄약</th>
+            <th onclick="sortTable(7)">식량</th>
+            <th onclick="sortTable(8)">부품</th>
+            <th onclick="sortTable(9)">획득 아이템</th>
+          </tr>
+        </thead>
+      <tbody>
+      	<!-- 데이터  -->
+      </tbody>
+	</table>
+</div>
+</div>
+</body>
+</html>
